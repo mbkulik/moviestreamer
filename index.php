@@ -26,8 +26,6 @@ foreach( $files as $file )
     }
 }
 
-echo "</form>";
-
 ?>
 
 </body>
