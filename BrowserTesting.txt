@@ -1,6 +1,6 @@
 IE9:                Not Tested
 Firefox 3.6:        ogg
-Opera 11:           Not Tested
+Opera 11:           ogg
 Chrome:             mp4
 Safari:             mp4
 Mobile Safari:      Not Tested
