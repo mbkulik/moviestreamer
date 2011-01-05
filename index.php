@@ -20,7 +20,7 @@ foreach( $files as $file )
             $stripped_name = str_replace(".mp4", "", $file);
       
             //set up the link
-            echo "<a href=\"video.php?vid=" . $file ."\">" .
+            echo "<a href=\"video.php?vid=" . $stripped_name ."\">" .
             $stripped_name . "</a><br />";
         }
     }
