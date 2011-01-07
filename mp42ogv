@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+directory=$1
+listed=$( ls $1 )
+
+for i in $listed; do
+    if [[ $i == *".mp4" ]]; then
+        
+        mp4path="${directory}/${i}"
+        ogvpath=${mp4path/.mp4/.ogv}
+
+        if [ -f $ogvpath ]; then
+            echo "$ogvpath already exists, skipping conversion"
+        else
+            ffmpeg2theora $mp4path --videoquality 8 \
+            --audioquality 6 --output $ogvpath
+        fi
+    fi
+done
