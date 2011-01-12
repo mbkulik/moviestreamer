@@ -1,7 +1,7 @@
-IE9:                Not Tested
-Firefox 3.6:        ogg
-Opera 11:           ogg
-Chrome:             mp4
-Chromium:           ogg
+IE9:                Not Tested (mp4)
+Firefox 4.0:        Not Working (webm)
+Opera 11:           webm
+Chrome:             mp4/webm
+Chromium:           webm
 Safari:             mp4
 Mobile Safari:      mp4
