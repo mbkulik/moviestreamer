@@ -13,7 +13,7 @@ for i in $listed; do
             echo "$webmpath already exists, skipping conversion"
         else
             ffmpeg -i $mp4path -f webm -vcodec libvpx_vp8 \
-            -acodec libvorbis -ab 160000 -sameeq $webmpath
+            -acodec libvorbis -ab 160000 -sameq $webmpath
         fi
     fi
 done
