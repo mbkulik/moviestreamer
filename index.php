@@ -11,8 +11,8 @@ $files = scandir( $dir );
 foreach( $files as $file )
 {
     //filter out dot files
-    if( $file[0] != "." )
-    {
+    //if( $file[0] != "." )
+    //{
         //filter out non mp4 files
         if( strpos($file, ".mp4") != FALSE )
         {
@@ -23,7 +23,7 @@ foreach( $files as $file )
             echo "<a href=\"video.php?vid=" . $stripped_name ."\">" .
             $stripped_name . "</a><br />";
         }
-    }
+    //}
 }
 
 ?>
