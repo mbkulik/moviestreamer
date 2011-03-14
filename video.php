@@ -2,7 +2,6 @@
 <body>
 
 <?php 
-
 $video = $_GET['vid'];
 
 if( $video != '' )
@@ -15,7 +14,6 @@ if( $video != '' )
     echo "Your Browser does not support video streaming html5 tags\n";
     echo "</video>";
 }
-
 ?>
 
 </body>
