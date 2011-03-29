@@ -2,7 +2,7 @@
 <head></head>
 <body>
 
-<br /> A file marked with a "*" is supported on all browsers<br /><br />
+<br /> "*" All common browsers supported<br /><br />
 
 <?php
 $dir = "movies";
@@ -20,13 +20,10 @@ foreach( $files as $file )
         //check to see if a .webm file exists, then movie
         // plays on all browsers
         $full_support = '';
-
         $webm_file = './' . $dir . '/' . $stripped_name . '.webm';
-        //echo $webm_file;
 
         if( file_exists($webm_file) == TRUE )
         {
-            //echo "Webm file exists";
             $full_support = '*';
         }
 
