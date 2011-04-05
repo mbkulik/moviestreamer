@@ -18,12 +18,7 @@ if( $video != '' )
     {
         echo " type=\"video/webm\" />\n";
     }
-
     
-    
-    #. ".mp4\" type=\"video/mp4\" />\n";
-    #echo "\t<source src=\"movies/" . $video
-    #     . ".webm\" type=\"video/webm\" />\n";
     echo "Your Browser does not support video streaming html5 tags\n";
     echo "</video>";
 }
