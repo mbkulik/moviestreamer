@@ -1,3 +1,3 @@
 #!/bin/sh
 
-scp *.html *.php $1@$2:$3
+scp *.php $1@$2:$3
