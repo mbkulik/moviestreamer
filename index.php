@@ -7,7 +7,11 @@
 
     if( ($browser->getBrowser() == Browser::BROWSER_CHROME &&
          $browser->getVersion() <= 11 ) ||
-         $browser->getBrowser() == Browser::BROWSER_SAFARI )
+         $browser->getBrowser() == Browser::BROWSER_SAFARI ||
+	 $browser->getBrowser() == Browser::BROWSER_IPAD   ||
+	 $browser->getBrowser() == Browser::BROWSER_IPHONE ||
+	 $browser->getBrowser() == Browser::BROWSER_IPOD   ||
+	 $browser->getBrowser() == Browser::BROWSER_ANDROID )
     {
         $videotype = "mp4";
     }

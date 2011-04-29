@@ -1,7 +1,0 @@
-IE9:                Not Tested (mp4)
-Firefox 4.0:        webm
-Opera 11:           webm
-Chrome:             mp4/webm
-Chromium:           webm
-Safari:             mp4
-Mobile Safari:      mp4
