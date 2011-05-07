@@ -7,6 +7,8 @@
 
     if( ($browser->getBrowser() == Browser::BROWSER_CHROME &&
          $browser->getVersion() <= 11 ) ||
+	($browser->getBrowser() == Browser::BROWSER_IE &&
+	 $browser->getVersion() >= 9 )  ||
          $browser->getBrowser() == Browser::BROWSER_SAFARI ||
 	 $browser->getBrowser() == Browser::BROWSER_IPAD   ||
 	 $browser->getBrowser() == Browser::BROWSER_IPHONE ||
