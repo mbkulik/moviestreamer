@@ -14,5 +14,5 @@ Tested:	Browser:	Version:	Video Type:	Platform:
 [P] 	Chromium	12.0+		webm		mac
 [P]	Chrome Canary			webm		mac
 [P] 	Opera		11.0		webm		mac
-[P] 	Firefox		4.0		webm		mac
+[P] 	Firefox		4.0		webm		mac, linux
 [F] 	IE		9.0		mp4		windows
