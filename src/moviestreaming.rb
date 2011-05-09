@@ -17,7 +17,8 @@ get '/' do
 
 	if browser.chrome? or browser.opera? or browser.firefox?
 		video_type = ".webm"
-	elsif browser.ios? or browser.safari? or browser.ie9?
+	elsif browser.ios? or browser.safari? or browser.ie9? or
+	browser.android?
 		video_type = ".mp4"
 	else
 		"Unsupported Browser"

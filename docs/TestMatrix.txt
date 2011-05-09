@@ -2,13 +2,14 @@ Moviestreaming Testing Matrix
 
 P = Passed
 F = Failed
+S = Sort of working
 
 Tested:	Browser:	Version:	Video Type:	Platform:
 
 [P]	iPhone		iOS 4.3		mp4		iOS
 [P] 	iPad		iOS 4.3		mp4		iOS
 [P]	iPod		iOS 4.3		mp4		iOS
-[F] 	Android				mp4
+[S] 	Android		2.3.4		mp4		android
 [P] 	Safari		5.0		mp4		mac
 [P] 	Chrome		11.0		webm		mac, linux, windows
 [P] 	Chromium	12.0+		webm		mac

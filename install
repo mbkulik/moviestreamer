@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# install script for moviestreaming server
+#
+
+echo "Beginning Installer"
