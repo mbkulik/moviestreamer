@@ -3,4 +3,9 @@
 # install script for moviestreaming server
 #
 
-echo "Beginning Installer"
+
+sudo gem install mongrel
+sudo gem install sinatra
+sudo gem install browser
+./chmvdir
+echo "Install Succeeded"

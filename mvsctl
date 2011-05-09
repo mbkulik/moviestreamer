@@ -14,7 +14,7 @@ case "$state" in
 	echo "Stopping Movie Streaming Server."
 	;;
 'dev')
-	ruby -rubygems ./src/moviestreaming.rb
+	cd src; sudo ruby -rubygems moviestreaming.rb
 	;;
 *)
 	echo "$0 {start|stop|dev}"

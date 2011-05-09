@@ -1,0 +1,14 @@
+#!/usr/bin/env wish
+
+set filename ./src/public
+set fexist [file exist $filename]
+
+if { $fexist == 1 } {
+	exec rm $filename
+}
+
+set file [tk_chooseDirectory]
+
+exec ln -s $file $filename
+
+exit 0
