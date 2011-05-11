@@ -1,4 +1,12 @@
 #!/usr/bin/env wish
+#
+# Michael B. Kulik
+# 05/09/2011
+# Copyright 2011
+#
+# User interface for selecting the folder where the
+# movies live
+#
 
 set filename ./src/public
 set fexist [file exist $filename]
