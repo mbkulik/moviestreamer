@@ -1,9 +1,12 @@
 
 
-.PHONY: install change start build_release
+.PHONY: install change devel build_release production
 
-start:
-	sudo ruby -C src -rubygems moviestreaming.rb
+production:
+	sudo ruby -C src -rubygems moviestreaming.rb -p 80 -e production -s mongrel
+
+devel:
+	ruby -C src -rubygems moviestreaming.rb -e development -s mongrel
 
 change:
 	./scripts/chmvdir
