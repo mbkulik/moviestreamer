@@ -1,4 +1,9 @@
-
+#
+# Michael B. Kulik
+# 5/13/2011
+#
+# Makefile for Movie Streaming Server
+#
 
 .PHONY: install change devel build_release production
 
@@ -18,3 +23,6 @@ install:
 	./scripts/chmvdir
 
 build_release:
+	rm -rf build
+	mkdir build
+	tar -czvf build/mvs.tar.gz Makefile docs/ scripts/ src/
