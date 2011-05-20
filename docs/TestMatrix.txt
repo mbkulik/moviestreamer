@@ -2,7 +2,7 @@ Moviestreaming Testing Matrix
 
 P = Passed
 F = Failed
-S = Sort of working
+S = Partial Support
 
 Tested:	Browser:	Version:	Video Type:	Platform:
 
