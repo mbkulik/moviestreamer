@@ -35,7 +35,7 @@ case "$state" in
 	;;
 'install')
 	echo "Install server dependencies."
-	sudo gem install rack -v=1.0.1
+	sudo gem install rack
 	sudo gem install mongrel
 	sudo gem install sinatra
 	sudo gem install browser
