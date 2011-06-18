@@ -6,7 +6,7 @@ proc start {} {
 
 	if { $fexist == 0 } {
 		cd ./src
-		exec nohup rackup -E production -p 8080 -s mongrel -P mvs.pid &
+		exec nohup rackup -E production -p 8080 -s mongrel -P mvs.pid > mvs.out &
 	}
 }
 
@@ -31,7 +31,8 @@ proc devel {} {
 }
 
 proc install {} {
-	exec sudo gem install thin
+	exec sudo gem install rack
+	exec sudo gem install mongrel
 	exec sudo gem install sinatra
 	exec sudo gem install browser
 }
@@ -57,35 +58,37 @@ proc usage {} {
 	puts "mvsctl {start|stop|devel|install|build|change \[path\]}"
 }
 
-if { $argc >= 1 } {
-	set command [lindex $argv 0 ]
+if { $argv0 == "./mvsctl" } {
+	if { $argc >= 1 } {
+		set command [lindex $argv 0 ]
 
-	switch $command {
+		switch $command {
 
-		start 	{ puts "Starting server in production mode."
-			  start
-			}
-		stop	{ puts "Stopping server."
-			  stop
-			}
-		devel	{ puts "Starting server in development mode."
-			  devel
-			}
-		install { puts "Installing server dependencies."
-			  install
-			}
-		build	{ puts "Building a release package."
-			  build 
-			}
-		change	{ if { $argc == 2 } {
-			  	puts "Changing movie location." 
-			  	set location [lindex $argv 1]
-			  	change $location
-			  } else {
-				puts "Please specify the new movie directory."
-			  }
-                       	} 
-		default	{ usage }
+			start 	{ puts "Starting server in production mode."
+			  	  start
+				}
+			stop	{ puts "Stopping server."
+			  	  stop
+				}
+			devel	{ puts "Starting server in development mode."
+			  	  devel
+				}
+			install { puts "Installing server dependencies."
+			  	  install
+				}
+			build	{ puts "Building a release package."
+			  	  build 
+				}
+			change	{ if { $argc == 2 } {
+			  	  puts "Changing movie location." 
+			  	  set location [lindex $argv 1]
+			  	  change $location
+			  	  } else {
+					puts "Please specify the new movie directory."
+			  	  }
+                       		} 
+			default	{ usage }
 
-	}
-} else { usage }
+		}
+	} else { usage }
+}

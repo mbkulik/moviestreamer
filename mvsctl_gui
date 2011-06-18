@@ -2,4 +2,65 @@
 
 source [file dirname [info script]]/mvsctl
 
-build
+set lbl ""
+
+frame .fr
+pack .fr
+
+label .fr.status -textvariable lbl
+pack .fr.status
+
+button .fr.cb -text "Close" -command Close
+pack .fr.cb -padx 5 -pady 5 -side right
+
+button .fr.change -text "Change" -command GUI_Change
+pack .fr.change -padx 5 -pady 5 -side right
+
+button .fr.stop -text "Stop" -command GUI_Stop
+pack .fr.stop -padx 5 -pady 5 -side right
+
+button .fr.start -text "Start" -command GUI_Start
+pack .fr.start -side right
+
+
+proc Close {} {
+	exit 0
+}
+
+proc GUI_Start {} {
+	start
+	display_status
+}
+
+proc GUI_Stop {} {
+	stop
+	display_status
+}
+
+proc GUI_Change {} {
+	set fname [tk_chooseDirectory]
+
+	if { $fname != "" } {
+		change $fname
+	}
+}
+
+proc display_status {} {
+	global lbl
+
+	set pidfile ./src/mvs.pid
+	set fexist [ file exist $pidfile]
+
+	if { $fexist == 1 } {
+		set lbl "The Server is running."
+	} else {
+		set lbl "The Server is stopped."
+	}
+}
+
+display_status 
+
+wm title . "Movie server control panel"
+wm geometry . 300x75+300+300
+
+
