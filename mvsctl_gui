@@ -29,11 +29,13 @@ proc Close {} {
 
 proc GUI_Start {} {
 	start
+	after 500
 	display_status
 }
 
 proc GUI_Stop {} {
 	stop
+	after 500
 	display_status
 }
 

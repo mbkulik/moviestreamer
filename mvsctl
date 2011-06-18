@@ -6,7 +6,9 @@ proc start {} {
 
 	if { $fexist == 0 } {
 		cd ./src
-		exec nohup rackup -E production -p 8080 -s mongrel -P mvs.pid > mvs.out &
+		exec nohup rackup -E production -p 8080 -s mongrel -P mvs.pid &
+		#exec rackup -E production -p 8080 -s mongrel -P mvs.pid -D
+		cd ../
 	}
 }
 

@@ -1,4 +1,6 @@
 *.swp
+*.log
+*.pid
 *.out
 
 public
