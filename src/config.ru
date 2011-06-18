@@ -1,2 +1,2 @@
-require 'moviestreaming'
+require 'MovieStreamer'
 run Sinatra::Application

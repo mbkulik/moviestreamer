@@ -1,37 +1,91 @@
 #!/usr/bin/env tclsh
-#
-# Michael B. Kulik
-# 6/16/2011
-#
-# Command line control script for movie streaming server
-#
 
-# include common control functions for command line and 
-# gui version
-source [file dirname [info script]]/src/common.tcl 
+proc start {} {
+	set pidfile ./src/mvs.pid
+	set fexist [file exist $pidfile]
 
+	if { $fexist == 0 } {
+		cd ./src
+		exec nohup rackup -E production -p 8080 -s mongrel -P mvs.pid &
+	}
+}
+
+proc stop {} {
+	set pidfile ./src/mvs.pid
+	set fexist [file exist $pidfile]
+
+	if { $fexist == 1 } {
+		set fp [open $pidfile r]
+		set id [read $fp]
+		close $fp
+
+		if { $id > 1 } {
+			exec kill -TERM $id
+		}
+	}
+}
+
+proc devel {} {
+	cd ./src
+	exec rackup -E development -p 8080 -s mongrel
+}
+
+proc install {} {
+	exec sudo gem install thin
+	exec sudo gem install sinatra
+	exec sudo gem install browser
+}
+
+proc build {} {
+	exec rm -rf build/
+	exec mkdir build
+	exec tar -czvf build/mvs.tar.gz mvsctl mvsctl_gui docs/ src/
+}
+
+proc change { location } {
+		set filename ./src/public
+		set fexist [file exist $filename]
+
+		if { $fexist == 1 } {
+			exec rm ./src/public
+		}
+
+		exec ln -s $location $filename
+}
 
 proc usage {} {
 	puts "mvsctl {start|stop|devel|install|build|change \[path\]}"
 }
 
-if { $argc < 1 } {
-	usage
-	exit 1
-} else {
-	
-set command [ lindex $argv 0]
+if { $argc >= 1 } {
+	set command [lindex $argv 0 ]
 
-switch $command {
+	switch $command {
 
-	"start"		{ start }
-	"stop"  	{ stop }
-	"devel" 	{ devel }
-	"install"	{ install }
-	"build" 	{ build }
-	"change" 	{ change }
-	default 	{ usage }
-}
+		start 	{ puts "Starting server in production mode."
+			  start
+			}
+		stop	{ puts "Stopping server."
+			  stop
+			}
+		devel	{ puts "Starting server in development mode."
+			  devel
+			}
+		install { puts "Installing server dependencies."
+			  install
+			}
+		build	{ puts "Building a release package."
+			  build 
+			}
+		change	{ if { $argc == 2 } {
+			  	puts "Changing movie location." 
+			  	set location [lindex $argv 1]
+			  	change $location
+			  } else {
+				puts "Please specify the new movie directory."
+			  }
+                       	} 
+		default	{ usage }
 
-}
-
+	}
+} else { usage }

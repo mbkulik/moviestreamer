@@ -1,10 +1,5 @@
 #!/usr/bin/env wish
 
-# include common control functions for command line and 
-# gui version
-source [file dirname [info script]]/src/common.tcl 
+source [file dirname [info script]]/mvsctl
 
-frame .fr
-
-wm title . Simple
-wm geometry . 250x150+300+300
+build

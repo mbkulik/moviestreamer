@@ -3,8 +3,8 @@ require 'sinatra'
 require 'browser'
 
 configure do
-    settings.add_charset << "video/mp4"
-    settings.add_charset << "video/webm"
+    	settings.add_charset << "video/mp4"
+    	settings.add_charset << "video/webm"
 end
 
 get '/' do
