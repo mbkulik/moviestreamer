@@ -40,9 +40,13 @@ proc install {} {
 }
 
 proc build {} {
-	exec rm -rf build/
-	exec mkdir build
-	exec tar -czvf build/mvs.tar.gz mvsctl mvsctl_gui docs/ src/
+	if { [file exist build/ ] } {
+		exec rm -r build/
+	}
+
+	file mkdir build
+	
+	exec tar -czf build/mvs.tar.gz mvsctl mvsctl_gui docs/ src/config.ru src/MovieStreamer.rb
 }
 
 proc change { location } {
