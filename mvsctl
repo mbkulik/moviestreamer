@@ -37,6 +37,7 @@ proc install {} {
 	exec sudo gem install mongrel
 	exec sudo gem install sinatra
 	exec sudo gem install browser
+	exec sudo gem install haml
 }
 
 proc build {} {

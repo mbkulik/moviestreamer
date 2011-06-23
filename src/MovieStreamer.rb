@@ -1,6 +1,9 @@
 require 'rubygems'
 require 'sinatra'
 require 'browser'
+require 'haml'
+
+set :haml, :format => :html5
 
 configure do
     	settings.add_charset << "video/mp4"
@@ -25,10 +28,20 @@ get '/' do
 
 	Dir.foreach('./public') do |item|
         	next if video_type.include?(File.extname(item)) == false
-        	stripped_name = String.new(item)
-		stripped_name[File.extname(item)] = ""
+        	stripped_name = item.sub(File.extname(item), "")
+		#stripped_name = String.new(item)
+		#stripped_name[File.extname(item)] = ""
         	str += "<a href=\"" + item + "\">" 
 		str +=  stripped_name  + "</a><br />\n"
     	end
-    	str
+    	@movies = str
+	haml :index
+end
+
+get '/readme' do
+	haml :readme
+end
+
+get '/browsers' do
+	haml :browsers
 end
