@@ -1,4 +1,4 @@
-#!/usr/bin/env tclsh8.5
+#!/usr/bin/env tclsh
 
 proc start {} {
 	set pidfile ./src/mvs.pid
@@ -45,9 +45,17 @@ proc build {} {
 		exec rm -r build/
 	}
 
+	if { [file exist docs/ ] } {
+		exec rm -r docs/
+	}
+
 	file mkdir build
+	file mkdir docs
 	
 	exec tar -czf build/mvs.tar.gz mvsctl mvsctl_gui docs/ src/config.ru src/MovieStreamer.rb
+
+	exec haml src/views/browsers.haml docs/Supported_Browsers.html
+	exec haml src/views/readme.haml docs/ReadMe.html
 }
 
 proc change { location } {

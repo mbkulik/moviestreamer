@@ -1,4 +1,4 @@
-#!/usr/bin/env wish8.5
+#!/usr/bin/env wish
 
 source [file dirname [info script]]/mvsctl
 
@@ -64,5 +64,3 @@ display_status
 
 wm title . "Movie server control panel"
 wm geometry . 300x75+300+300
-
-

@@ -2,6 +2,7 @@ require 'rubygems'
 require 'sinatra'
 require 'browser'
 require 'haml'
+require 'nokogiri'
 
 set :haml, :format => :html5
 
@@ -29,13 +30,53 @@ get '/' do
 	Dir.foreach('./public') do |item|
         	next if video_type.include?(File.extname(item)) == false
         	stripped_name = item.sub(File.extname(item), "")
-		#stripped_name = String.new(item)
-		#stripped_name[File.extname(item)] = ""
         	str += "<a href=\"" + item + "\">" 
 		str +=  stripped_name  + "</a><br />\n"
     	end
     	@movies = str
 	haml :index
+end
+
+get '/movielist' do
+	mp4_videos = Array.new
+	webm_videos = Array.new
+	m4v_videos = Array.new
+
+	Dir.foreach('./public') do |vid|
+		case File.extname(vid)
+			when ".webm" : webm_videos.push vid
+			when ".mp4" : mp4_videos.push vid
+			when ".m4v" : m4v_videos.push vid
+		end
+	end
+
+	builder = Nokogiri::XML::Builder.new do |xml|
+		xml.movies {
+			xml.webm {
+				webm_videos.each do |v|
+					xml.movie {
+						xml.title v
+					}
+				end
+			}
+			xml.mp4 {
+				mp4_videos.each do |v|
+					xml.movie {
+						xml.title v
+					}
+				end
+			}
+			xml.m4v {
+				m4v_videos.each do |v|
+					xml.movie {
+						xml.title = v
+					}
+				end
+			}
+		}
+	end
+
+	builder.to_xml
 end
 
 get '/readme' do
