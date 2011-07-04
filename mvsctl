@@ -7,7 +7,6 @@ proc start {} {
 	if { $fexist == 0 } {
 		cd ./src
 		exec nohup rackup -E production -p 8080 -s mongrel -P mvs.pid &
-		#exec rackup -E production -p 8080 -s mongrel -P mvs.pid -D
 		cd ../
 	}
 }
@@ -38,6 +37,7 @@ proc install {} {
 	exec sudo gem install sinatra
 	exec sudo gem install browser
 	exec sudo gem install haml
+	exec sudo gem install nokogiri
 }
 
 proc build {} {
