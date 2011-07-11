@@ -52,22 +52,24 @@ class ControlPanel
     def update_status()
         pid_path = File.join(File.dirname(__FILE__), "mvs.pid")
 
+        sleep 0.5
+
         if File.exists?(pid_path)
-            @status_label.setText = "Hello" # << {:text => "The Server is Running."}
+            @status_label.stringValue = "The Server is Running."
         else
-            @status_label.setText = "World" # << {:text => "The Server is Stopped."}
+            @status_label.stringValue = "The Server is Stopped."
         end
     end
 
     def start
         application :name => "Hello World" do |app|
 	        app.delegate = self
-	        window( :size => [425, 75], :center=> true, :title => "Movie Server Control Panel") do |win|
+	        window( :size => [450, 75], :center=> true, :title => "Movie Server Control Panel") do |win|
                 win.will_close { exit }
 
 			    win.view = layout_view( :layout => {:expand => [:width, :height], 
                                         :padding => 0, :margin => 0}) do |vert|
-                    vert << @status_label = label(:layout => {:align => :center})
+                    vert << @status_label = text_field(:layout => {:expand => :width})
 
 			        vert << layout_view(:frame => [0, 0, 0, 40], :mode => :horizontal,
                                         :layout => {:padding => 0, :margin => 0,
@@ -97,10 +99,11 @@ class ControlPanel
 		            end 
 	            end
             end
+        
+            update_status
         end
     end
 end
 
 cp = ControlPanel.new
 cp.start
-cp.update_status
