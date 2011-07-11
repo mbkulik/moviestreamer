@@ -7,7 +7,7 @@ def start_server()
 end
 
 def stop_server()
-	puts "Stop Server\n"
+    puts "Stop Server\n"
 end
 
 def devel_mode()
@@ -30,7 +30,7 @@ options = {}
 
 optparse = OptionParser.new do |opts|
 
-        opts.banner = "Usage: mvsctl [options]"
+    opts.banner = "Usage: mvsctl [options]"
 
 	opts.on('-s', '--start', 'Start Server') do
 		start_server	
@@ -49,7 +49,7 @@ optparse = OptionParser.new do |opts|
 	end
 
 	opts.on('-b', '--build', 'Build a release') do
-       		build_release	
+        build_release	
 	end
 
 	opts.on('-c', '--change PATH', 'Change the movie directory') do |p|
@@ -57,9 +57,9 @@ optparse = OptionParser.new do |opts|
 	end 
 
 	opts.on('-h', '--help', 'Display this screen') do
-                puts opts
-                exit
-        end
+        puts opts
+        exit
+    end
 end
 
 optparse.parse!
