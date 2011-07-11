@@ -8,11 +8,16 @@ def start_server()
 	end
 end
 
+################################################################
+## stop_server 
+################################################################
 def stop_server()
-	if File.exists?("./src/mvs.pid")
-    		pid = File.open("./src/mvs.pid").first.to_i
+	pid_path = File.join(File.dirname(__FILE__), "src/mvs.pid")
+
+	if File.exists?(pid_path)
+    		pid = File.open(pid_path).first.to_i
 		if pid > 1
-			system("kill -TERM #{pid}")
+			Process.kill("TERM", pid)
 		end
 	end
 end
@@ -32,31 +37,38 @@ def install_depends()
 end
 
 def build_release()
-	if File.exists?("build/")
+	build_dir = File.join(File.dirname(__FILE__), "build/")
+	docs_dir = File.join(File.dirname(__FILE__), "docs/")
+
+	if File.exists?(build_dir)
 		system("rm -r build/")
 	end
 
-	Dir.mkdir("build")
+	Dir.mkdir(build_dir)
 
-	if File.exists?("docs/")
+	if File.exists?(docs_dir)
 		system("rm -r docs/")
 	end
 
-	Dir.mkdir("docs/")
+	Dir.mkdir(docs_dir)
 
-	system("tar -czf build/mvs.tar.gz mvsctl mvsctl_gui docs/ src/config.ru src/MovieStreamer.rb")
+	system("tar -czf build/mvs.tar.gz mvsctl docs/ src/config.ru src/MovieStreamer.rb")
 
 	system("haml src/views/browsers.haml docs/Supported_Browsers.html")
 	system("haml src/views/readme.haml docs/ReadMe.html")
 end
 
+################################################################
+# change_directory
+################################################################
 def change_directory( path )
-	if File.exists?("./src/public")
-		File.unlink("./src/public")
+	public_path = File.join(File.dirname(__FILE__), "src/public")
+
+	if File.exists?(public_path)
+		File.unlink(public_path)
 	end
 	
-	File.symlink(path, "./src/public")
-
+	File.symlink(path, public_path)
 end
 
 options = {}
