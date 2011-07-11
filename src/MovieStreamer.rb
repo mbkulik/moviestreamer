@@ -44,9 +44,9 @@ get '/movielist' do
 
 	Dir.foreach('./public') do |vid|
 		case File.extname(vid)
-			when ".webm" : webm_videos.push vid
-			when ".mp4" : mp4_videos.push vid
-			when ".m4v" : m4v_videos.push vid
+			when ".webm" then webm_videos.push vid
+			when ".mp4" then  mp4_videos.push vid
+			when ".m4v" then  m4v_videos.push vid
 		end
 	end
 

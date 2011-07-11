@@ -1,4 +1,4 @@
-require 'MovieStreamer'
+require './MovieStreamer.rb'
 
 log = File.new("mvs.log", "a")
 $stdout.reopen(log)

@@ -1,109 +1,65 @@
-#!/usr/bin/env tclsh
+#!/usr/bin/env ruby
 
-proc start {} {
-	set pidfile ./src/mvs.pid
-	set fexist [file exist $pidfile]
+require 'optparse'
 
-	if { $fexist == 0 } {
-		cd ./src
-		exec nohup rackup -E production -p 8080 -s mongrel -P mvs.pid &
-		cd ../
-	}
-}
+def start_server()
+	puts "Start Server\n"
+end
 
-proc stop {} {
-	set pidfile ./src/mvs.pid
-	set fexist [file exist $pidfile]
+def stop_server()
+	puts "Stop Server\n"
+end
 
-	if { $fexist == 1 } {
-		set fp [open $pidfile r]
-		set id [read $fp]
-		close $fp
+def devel_mode()
+	puts "Development Mode\n"
+end
 
-		if { $id > 1 } {
-			exec kill -TERM $id
-		}
-	}
-}
+def install_depends()
+	puts "Install Dependencies"
+end
 
-proc devel {} {
-	cd ./src
-	exec rackup -E development -p 8080 -s mongrel
-}
+def build_release()
+	puts "Build a Release"
+end
 
-proc install {} {
-	exec sudo gem install rack
-	exec sudo gem install mongrel
-	exec sudo gem install sinatra
-	exec sudo gem install browser
-	exec sudo gem install haml
-	exec sudo gem install nokogiri
-}
+def change_directory( path )
+	puts path
+end
 
-proc build {} {
-	if { [file exist build/ ] } {
-		exec rm -r build/
-	}
+options = {}
 
-	if { [file exist docs/ ] } {
-		exec rm -r docs/
-	}
+optparse = OptionParser.new do |opts|
 
-	file mkdir build
-	file mkdir docs
-	
-	exec tar -czf build/mvs.tar.gz mvsctl mvsctl_gui docs/ src/config.ru src/MovieStreamer.rb
+        opts.banner = "Usage: mvsctl [options]"
 
-	exec haml src/views/browsers.haml docs/Supported_Browsers.html
-	exec haml src/views/readme.haml docs/ReadMe.html
-}
+	opts.on('-s', '--start', 'Start Server') do
+		start_server	
+	end
 
-proc change { location } {
-		set filename ./src/public
-		set fexist [file exist $filename]
+	opts.on('-x', '--stop', 'Stop Server') do
+		stop_server	
+	end
 
-		if { $fexist == 1 } {
-			exec rm ./src/public
-		}
+	opts.on('-d', '--devel', 'Development Mode') do 
+		devel_mode	
+	end
 
-		exec ln -s $location $filename
-}
+	opts.on('-i', '--install', 'Install Dependencies') do
+		install_depends	
+	end
 
-proc usage {} {
-	puts "mvsctl {start|stop|devel|install|build|change \[path\]}"
-}
+	opts.on('-b', '--build', 'Build a release') do
+       		build_release	
+	end
 
-if { $argv0 == "./mvsctl" } {
-	if { $argc >= 1 } {
-		set command [lindex $argv 0 ]
+	opts.on('-c', '--change PATH', 'Change the movie directory') do |p|
+		change_directory p	
+	end 
 
-		switch $command {
+	opts.on('-h', '--help', 'Display this screen') do
+                puts opts
+                exit
+        end
+end
 
-			start 	{ puts "Starting server in production mode."
-			  	  start
-				}
-			stop	{ puts "Stopping server."
-			  	  stop
-				}
-			devel	{ puts "Starting server in development mode."
-			  	  devel
-				}
-			install { puts "Installing server dependencies."
-			  	  install
-				}
-			build	{ puts "Building a release package."
-			  	  build 
-				}
-			change	{ if { $argc == 2 } {
-			  	  puts "Changing movie location." 
-			  	  set location [lindex $argv 1]
-			  	  change $location
-			  	  } else {
-					puts "Please specify the new movie directory."
-			  	  }
-                       		} 
-			default	{ usage }
-
-		}
-	} else { usage }
-}
+optparse.parse!
