@@ -4,7 +4,7 @@
 
 %p
 Michael B. Kulik<br/>
-6/23/2011<br/>
+7/19/2011<br/>
 Copyright 2011<br/>
 %br/
 
@@ -13,16 +13,13 @@ I. Operating System Prerequisites<br/>
 %table
 	%tr
 		%td
-		%td 1. tcl
+		%td 1. ruby
 	%tr
 		%td
-		%td 2. ruby
+		%td 2. ruby gems
 	%tr
 		%td
-		%td 3. ruby gems
-	%tr
-		%td
-		%td 4. tk (optional)
+		%td 3. macruby + hotcocoa (for optional gui on OS X )
 
 
 <br/>
@@ -30,22 +27,22 @@ II. Usage<br/>
 
 %table
 	%tr
-		%td ./mvsctl start
+		%td ./mvsctl -s, --start
 		%td - starts the server on http://127.0.0.1:8080/
 	%tr
-		%td ./mvsctl stop
+		%td ./mvsctl -x, --stop
 		%td - stops the server
 	%tr
-		%td ./mvsctl devel
+		%td ./mvsctl -d, --devel
 		%td - starts the server in development mode on http://127.0.0.1:8080/
 	%tr
-		%td ./mvsctl install
+		%td ./mvsctl -i, --install
 		%td - installs the the required ruby gems 
 	%tr
-		%td ./mvsctl build
+		%td ./mvsctl -b, --build
 		%td - creates a distributable install for the movie server
 	%tr
-		%td ./mvsctl change [path]
+		%td ./mvsctl -c, --change PATH
 		%td - changes the location of the movie directory to the specified path
 
 %br/
@@ -55,6 +52,6 @@ III. GUI
 
 %table
 	%tr
-		%td A simple GUI is provided for non-commandline control (./mvsctl_gui)
+		%td A standalone mac app with gui is provided as mvs.app, It depends on MacRuby and hotcocoa gem
 
 

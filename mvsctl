@@ -2,9 +2,14 @@
 
 require 'optparse'
 
+pid_path = File.join(File.dirname(__FILE__), "src/mvs.pid")
+
+###############################################################
+## starts the server
+###############################################################
 def start_server()
-	if File.exists?("./src/mvs.pid") == false
-		system("cd ./src; nohup rackup -E production -p 8080 -s mongrel -P mvs.pid &")
+	if File.exists?(pid_path) == false
+		system("cd ./src; rackup -E production -p 80 -s mongrel -P mvs.pid -D")
 	end
 end
 
@@ -12,8 +17,6 @@ end
 ## stop_server 
 ################################################################
 def stop_server()
-	pid_path = File.join(File.dirname(__FILE__), "src/mvs.pid")
-
 	if File.exists?(pid_path)
     		pid = File.open(pid_path).first.to_i
 		if pid > 1
@@ -22,11 +25,17 @@ def stop_server()
 	end
 end
 
+################################################################
+## starts the server in the development mode
+################################################################
 def devel_mode()
 	puts "Development Mode\n"
 	system("cd ./src; rackup -E development -p 8080 -s mongrel")
 end
 
+################################################################
+## installs the needed dependency gems
+################################################################
 def install_depends()
 	system("sudo gem install rack")
 	system("sudo gem install mongrel")
@@ -36,6 +45,9 @@ def install_depends()
 	system("sudo gem install nokogiri")
 end
 
+################################################################
+## build a release bundle and documents
+################################################################
 def build_release()
 	build_dir = File.join(File.dirname(__FILE__), "build/")
 	docs_dir = File.join(File.dirname(__FILE__), "docs/")

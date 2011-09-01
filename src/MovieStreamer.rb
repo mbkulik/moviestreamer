@@ -5,6 +5,9 @@ require 'haml'
 require 'nokogiri'
 
 set :haml, :format => :html5
+set :root, Dir.pwd
+set :public, Proc.new { File.join(root, "public") }
+set :views, Proc.new { File.join(root, "views") }
 
 configure do
     	settings.add_charset << "video/mp4"
@@ -27,7 +30,7 @@ get '/' do
 		"Unsupported Browser"
 	end
 
-	Dir.foreach('./public') do |item|
+	Dir.foreach(settings.public) do |item|
         	next if video_type.include?(File.extname(item)) == false
         	stripped_name = item.sub(File.extname(item), "")
         	str += "<a href=\"" + item + "\">" 
@@ -42,7 +45,7 @@ get '/movielist' do
 	webm_videos = Array.new
 	m4v_videos = Array.new
 
-	Dir.foreach('./public') do |vid|
+	Dir.foreach(settings.public) do |vid|
 		case File.extname(vid)
 			when ".webm" then webm_videos.push vid
 			when ".mp4" then  mp4_videos.push vid
