@@ -1,3 +1,3 @@
 require './MovieStreamer.rb'
 
-run Sinatra::Application
+run MovieStreamer

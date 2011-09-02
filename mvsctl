@@ -2,13 +2,13 @@
 
 require 'optparse'
 
-pid_path = File.join(File.dirname(__FILE__), "src/mvs.pid")
-
 ###############################################################
 ## starts the server
 ###############################################################
 def start_server()
-	if File.exists?(pid_path) == false
+    pid_path = File.join(File.dirname(__FILE__), "src/mvs.pid")
+	
+    if File.exists?(pid_path) == false
 		system("cd ./src; rackup -E production -p 80 -s mongrel -P mvs.pid -D")
 	end
 end
@@ -17,7 +17,9 @@ end
 ## stop_server 
 ################################################################
 def stop_server()
-	if File.exists?(pid_path)
+    pid_path = File.join(File.dirname(__FILE__), "src/mvs.pid")
+	
+    if File.exists?(pid_path)
     		pid = File.open(pid_path).first.to_i
 		if pid > 1
 			Process.kill("TERM", pid)
