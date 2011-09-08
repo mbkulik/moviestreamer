@@ -2,6 +2,8 @@
 
 require 'rubygems'
 require 'hotcocoa'
+require 'rack'
+require './MovieStreamer.rb'
 
 class ControlPanel
 	include HotCocoa
@@ -99,8 +101,12 @@ class ControlPanel
 		            end 
 	            end
             end
-        
-            update_status
+       
+            #Rack::Handler::Thin.run( MovieStreamer.new :Port => 8080)
+            #MovieStreamer.new.run!
+            #Rack::Handler::WEBrick.run( MovieStreamer.new, :Port => 8080)
+            #update_status
+
         end
     end
 end

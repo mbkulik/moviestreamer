@@ -40,6 +40,7 @@ class MovieStreamer < Sinatra::Base
     	end
     	@movies = str
 	    haml :index
+        #nokogiri :index
     end
 
     get '/movielist' do
