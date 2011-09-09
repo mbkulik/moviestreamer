@@ -44,7 +44,7 @@ def install_depends()
 	system("sudo gem install sinatra")
 	system("sudo gem install browser")
 	system("sudo gem install haml")
-	system("sudo gem install nokogiri")
+	system("sudo gem install json")
 end
 
 ################################################################
@@ -66,7 +66,7 @@ def build_release()
 
 	Dir.mkdir(docs_dir)
 
-	system("tar -czf build/mvs.tar.gz mvsctl docs/ src/config.ru src/MovieStreamer.rb")
+	system("tar -czf build/mvs.tar.gz mvsctl docs/ src/config.ru src/MovieStreamer.rb src/favicon.ico src/views/")
 
 	system("haml src/views/browsers.haml docs/Supported_Browsers.html")
 	system("haml src/views/readme.haml docs/ReadMe.html")
