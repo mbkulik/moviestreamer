@@ -2,7 +2,7 @@ require 'rubygems'
 require 'sinatra/base'
 require 'browser'
 require 'haml'
-require 'nokogiri'
+require 'json'
 
 class MovieStreamer < Sinatra::Base
 
@@ -40,49 +40,26 @@ class MovieStreamer < Sinatra::Base
     	end
     	@movies = str
 	    haml :index
-        #nokogiri :index
     end
 
     get '/movielist' do
-	    mp4_videos = Array.new
-	    webm_videos = Array.new
-	    m4v_videos = Array.new
+        movies = Hash.new
+        exts = [ '.mp4', '.webm', '.m4v' ]
 
 	    Dir.foreach(settings.public) do |vid|
-		    case File.extname(vid)
-			    when ".webm" then webm_videos.push vid
-			    when ".mp4" then  mp4_videos.push vid
-			    when ".m4v" then  m4v_videos.push vid
-		    end
-	    end
+            movie_name = vid.sub(File.extname(vid), "" )
+            movie_ext = File.extname(vid)
+        
+            if exts.include?( movie_ext )
+                if movies.has_key?( movie_name ) == false
+                    movies.store(movie_name, [] )
+                end
 
-	    builder = Nokogiri::XML::Builder.new do |xml|
-		    xml.movies {
-			    xml.webm {
-				    webm_videos.each do |v|
-					    xml.movie {
-						    xml.title v
-					    }
-				    end
-			    }
-			    xml.mp4 {
-				    mp4_videos.each do |v|
-					    xml.movie {
-						    xml.title v
-					    }
-				    end
-			    }
-			    xml.m4v {
-				    m4v_videos.each do |v|
-					    xml.movie {
-						    xml.title = v
-					    }
-				    end
-			    }
-		    }
+                 movies[movie_name].push movie_ext
+            end
 	    end
-
-	    builder.to_xml
+        
+        return JSON movies
     end
 
     get '/readme' do
