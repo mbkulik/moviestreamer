@@ -8,7 +8,7 @@ class MovieStreamer < Sinatra::Base
 
     set :haml, :format => :html5
     set :root, Dir.pwd
-    set :public, Proc.new { File.join(root, "public") }
+    set :public_folder, Proc.new { File.join(root, "public") }
     set :views, Proc.new { File.join(root, "views") }
 
     configure do
@@ -32,7 +32,7 @@ class MovieStreamer < Sinatra::Base
 		    "Unsupported Browser"
 	    end
 
-	    Dir.foreach(settings.public) do |item|
+	    Dir.foreach(settings.public_folder) do |item|
         	next if video_type.include?(File.extname(item)) == false
         	stripped_name = item.sub(File.extname(item), "")
         	str += "<a href=\"" + item + "\">" 
