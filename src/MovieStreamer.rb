@@ -46,7 +46,7 @@ class MovieStreamer < Sinatra::Base
         movies = Hash.new
         exts = [ '.mp4', '.webm', '.m4v' ]
 
-	    Dir.foreach(settings.public) do |vid|
+	    Dir.foreach(settings.public_folder) do |vid|
             movie_name = vid.sub(File.extname(vid), "" )
             movie_ext = File.extname(vid)
         
