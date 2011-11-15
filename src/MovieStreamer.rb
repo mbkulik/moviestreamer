@@ -32,11 +32,13 @@ class MovieStreamer < Sinatra::Base
 		    "Unsupported Browser"
 	    end
 
-	    Dir.foreach(settings.public_folder) do |item|
+        listing = Dir.entries(settings.public_folder)
+        listing.sort()
+
+	    listing.each  do |item|
         	next if video_type.include?(File.extname(item)) == false
         	stripped_name = item.sub(File.extname(item), "")
-        	str += "<a href=\"" + item + "\">" 
-		    str +=  stripped_name  + "</a><br />\n"
+        	str += "<a href=\"" + item + "\">" + stripped_name  + "</a><br />\n"
     	end
     	@movies = str
 	    haml :index
@@ -46,7 +48,11 @@ class MovieStreamer < Sinatra::Base
         movies = Hash.new
         exts = [ '.mp4', '.webm', '.m4v' ]
 
-	    Dir.foreach(settings.public_folder) do |vid|
+        listing = Dir.entries(settings.public_folder)
+        listing.sort()
+
+
+	    listing.each do |vid|
             movie_name = vid.sub(File.extname(vid), "" )
             movie_ext = File.extname(vid)
         
