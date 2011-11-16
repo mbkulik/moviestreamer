@@ -33,7 +33,7 @@ class MovieStreamer < Sinatra::Base
 	    end
 
         listing = Dir.entries(settings.public_folder)
-        listing.sort()
+        listing.sort!()
 
 	    listing.each  do |item|
         	next if video_type.include?(File.extname(item)) == false
@@ -49,7 +49,7 @@ class MovieStreamer < Sinatra::Base
         exts = [ '.mp4', '.webm', '.m4v' ]
 
         listing = Dir.entries(settings.public_folder)
-        listing.sort()
+        listing.sort!()
 
 
 	    listing.each do |vid|
