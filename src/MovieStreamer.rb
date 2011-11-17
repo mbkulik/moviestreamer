@@ -45,26 +45,19 @@ class MovieStreamer < Sinatra::Base
     end
 
     get '/movielist' do
-        movies = Hash.new
+        movies = Array.new
         exts = [ '.mp4', '.webm', '.m4v' ]
 
-        listing = Dir.entries(settings.public_folder)
-        listing.sort!()
+        Dir.foreach( settings.public_folder) do |vid|
+            extension = File.extname( vid )
 
-
-	    listing.each do |vid|
-            movie_name = vid.sub(File.extname(vid), "" )
-            movie_ext = File.extname(vid)
-        
-            if exts.include?( movie_ext )
-                if movies.has_key?( movie_name ) == false
-                    movies.store(movie_name, [] )
-                end
-
-                 movies[movie_name].push movie_ext
+            if extension.empty? == false and exts.include?( extension )
+                movies.push( vid )
             end
-	    end
-        
+        end
+
+        movies.sort!()
+
         return JSON movies
     end
 
