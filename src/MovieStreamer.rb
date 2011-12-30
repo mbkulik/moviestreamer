@@ -37,8 +37,8 @@ class MovieStreamer < Sinatra::Base
 
 	    listing.each  do |item|
         	next if video_type.include?(File.extname(item)) == false
-        	stripped_name = item.sub(File.extname(item), "")
-        	str += "<a href=\"" + item + "\">" + stripped_name  + "</a><br />\n"
+        	stripped_name = File.basename(item, File.extname(item)).sub("_"," ")
+            str += "<a href=\"" + item + "\">" + stripped_name  + "</a><br />\n"
     	end
     	@movies = str
 	    haml :index

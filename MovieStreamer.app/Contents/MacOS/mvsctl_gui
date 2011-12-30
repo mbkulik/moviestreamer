@@ -3,109 +3,57 @@
 require 'rubygems'
 require 'hotcocoa'
 require 'rack'
-require './MovieStreamer.rb'
+#require './MovieStreamer.rb'
+require './test.rb'
 
 class ControlPanel
 	include HotCocoa
 
-	################################################################
-	## start_server = (WORKING)
-	################################################################
-	def start_server()
-		pid_path = File.join(File.dirname(__FILE__), "mvs.pid")
-		script_path = File.join(File.dirname(__FILE__), "launch.sh")
-
-		if File.exists?(pid_path) == false
-			task = NSTask.alloc.init
-			task.currentDirectoryPath = File.dirname(__FILE__)
-			task.arguments = ["#{script_path}"]
-			task.launchPath = "/bin/sh"
-			task.launch
-		end
-	end
-
-    ################################################################
-    ## stop_server - (WORKING)
-    ################################################################
-    def stop_server()
-	    pid_path = File.join(File.dirname(__FILE__), "mvs.pid")
-
-	    if File.exists?(pid_path)
-            pid = File.open(pid_path).first.to_i
-		    if pid > 1
-			    Process.kill("TERM", pid)
-		    end
-	    end
-    end
-
-    ################################################################
-    ## change_directory - (WORKING)
-    ################################################################
-    def change_directory( path )
-	    public_path = File.join(File.dirname(__FILE__), "public")
-
-	    if File.exists?(public_path)
-		    File.unlink(public_path)
-	    end
-	
-	    File.symlink(path, public_path)
-    end
-
-    def update_status()
-        pid_path = File.join(File.dirname(__FILE__), "mvs.pid")
-
-        sleep 0.5
-
-        if File.exists?(pid_path)
-            @status_label.stringValue = "The Server is Running."
-        else
-            @status_label.stringValue = "The Server is Stopped."
-        end
-    end
-
     def start
         application :name => "Hello World" do |app|
 	        app.delegate = self
-	        window( :size => [450, 75], :center=> true, :title => "Movie Server Control Panel") do |win|
-                win.will_close { exit }
+	        #window( :size => [450, 75], :center=> true, :title => "Movie Server Control Panel") do |win|
+            #    win.will_close { exit }
 
-			    win.view = layout_view( :layout => {:expand => [:width, :height], 
-                                        :padding => 0, :margin => 0}) do |vert|
-                    vert << @status_label = text_field(:layout => {:expand => :width})
+			#    win.view = layout_view( :layout => {:expand => [:width, :height], 
+            #                            :padding => 0, :margin => 0}) do |vert|
+            #        vert << @status_label = text_field(:layout => {:expand => :width})
 
-			        vert << layout_view(:frame => [0, 0, 0, 40], :mode => :horizontal,
-                                        :layout => {:padding => 0, :margin => 0,
-                                        :start => false, :expand => [:width]}) do |horiz|
-                        horiz << button(:title => "Start Server", 
-                                        :on_action => lambda do |sender| 
-                                            start_server
-                                            update_status
-                                        end)
-				        horiz << button(:title => "Stop Server", 
-                                        :on_action => lambda do |sender| 
-                                            stop_server
-                                            update_status
-                                        end)
-				        horiz << button(
-					    :title => "Change Directory",
-					    :on_action => lambda do |sender|
-						    dialog = NSOpenPanel.openPanel
-						    dialog.canChooseFiles = false
-						    dialog.canChooseDirectories = true
-						    dialog.allowsMultipleSelection = false
-						    if dialog.runModalForDirectory(nil, file:nil) == NSOKButton
-							    change_directory dialog.filenames.first
-						    end
-					    end)
-				        horiz << button( :title => "Close", :on_action => lambda do |sender| exit end)
-		            end 
-	            end
-            end
+			        #vert << layout_view(:frame => [0, 0, 0, 40], :mode => :horizontal,
+                    #                    :layout => {:padding => 0, :margin => 0,
+                    #                    :start => false, :expand => [:width]}) do |horiz|
+                    #    horiz << button(:title => "Start Server", 
+                    #                    :on_action => lambda do |sender| 
+                    #                        start_server
+                    #                        update_status
+                    #                    end)
+				    #    horiz << button(:title => "Stop Server", 
+                    #                    :on_action => lambda do |sender| 
+                    #                        stop_server
+                    #                        update_status
+                    #                    end)
+				    #    horiz << button(
+					#    :title => "Change Directory",
+					#    :on_action => lambda do |sender|
+					#	    dialog = NSOpenPanel.openPanel
+					#	    dialog.canChooseFiles = false
+					#	    dialog.canChooseDirectories = true
+					#	    dialog.allowsMultipleSelection = false
+					#	    if dialog.runModalForDirectory(nil, file:nil) == NSOKButton
+					#		    change_directory dialog.filenames.first
+					#	    end
+					#   end)
+				    #    horiz << button( :title => "Close", :on_action => lambda do |sender| exit end)
+		            #end 
+	        #    end
+            #end
        
             #Rack::Handler::Thin.run( MovieStreamer.new :Port => 8080)
             #MovieStreamer.new.run!
             #Rack::Handler::WEBrick.run( MovieStreamer.new, :Port => 8080)
             #update_status
+
+            Rack::Handler::WEBrick.run( HelloWorld.new, :Port => 8080 )
 
         end
     end

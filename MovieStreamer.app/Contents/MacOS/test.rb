@@ -5,12 +5,12 @@ require 'sinatra/base'
 class HelloWorld < Sinatra::Base
 
     get '/' do
-        "Hello World!"
+        return "Hello World!"
     end
 
 end
 
-Rack::Handler::WEBrick.run( HelloWorld.new, :Port => 8080)
+Rack::Handler::Mongrel.run( HelloWorld.new, :Port => 8080)
 
 #require './MovieStreamer.rb'
 
