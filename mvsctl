@@ -9,7 +9,7 @@ def start_server()
     pid_path = File.join(File.dirname(__FILE__), "src/mvs.pid")
 	
     if File.exists?(pid_path) == false
-		system("cd ./src; rackup -E production -p 80 -s mongrel -P mvs.pid -D")
+		system("cd ./src; rackup -E production -p 80 -s puma -P mvs.pid -D")
 	end
 end
 
@@ -32,7 +32,7 @@ end
 ################################################################
 def devel_mode()
 	puts "Development Mode\n"
-	system("cd ./src; rackup -E development -p 8080 -s mongrel")
+	system("cd ./src; rackup -E development -p 8080 -s puma")
 end
 
 ################################################################
@@ -40,7 +40,7 @@ end
 ################################################################
 def install_depends()
 	system("sudo gem install rack")
-	system("sudo gem install mongrel")
+	system("sudo gem install puma")
 	system("sudo gem install sinatra")
 	system("sudo gem install browser")
 	system("sudo gem install haml")
