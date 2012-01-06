@@ -39,12 +39,7 @@ end
 ## installs the needed dependency gems
 ################################################################
 def install_depends()
-	system("sudo gem install rack")
-	system("sudo gem install puma")
-	system("sudo gem install sinatra")
-	system("sudo gem install browser")
-	system("sudo gem install haml")
-	system("sudo gem install json")
+	system("bundle install")
 end
 
 ################################################################

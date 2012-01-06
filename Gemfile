@@ -1,0 +1,7 @@
+source "http://rubygems.org"
+gem "rack"
+gem "puma"
+gem "sinatra"
+gem "browser"
+gem "haml"
+gem "json"
