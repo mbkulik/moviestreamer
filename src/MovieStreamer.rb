@@ -24,12 +24,12 @@ class MovieStreamer < Sinatra::Base
 
 	    if browser.chrome? or browser.opera? or browser.firefox?
 		    video_type.push ".webm"
-            @type = 'video/webm'
+            #@type = 'video/webm'
 	    elsif browser.ios? or browser.safari? or browser.ie9? or
 	    browser.android?
 		    video_type.push ".mp4"
 		    video_type.push ".m4v"
-            @type = 'video/mp4'
+            #@type = 'video/mp4'
 	    else
 		    "Unsupported Browser"
 	    end
@@ -39,7 +39,8 @@ class MovieStreamer < Sinatra::Base
 
 	    listing.each  do |item|
         	next if video_type.include?(File.extname(item)) == false
-        	stripped_name = File.basename(item, File.extname(item)).sub("_"," ")
+        	stripped_name = File.basename(item, File.extname(item))
+            stripped_name.gsub!("_" , " ")
             str += "<a href=\"" + "/m/" + item + "\">" + stripped_name  + "</a><br />\n"
     	end
     	@movies = str
