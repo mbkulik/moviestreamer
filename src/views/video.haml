@@ -1,0 +1,9 @@
+%html
+    %body
+        %video{:controls => true,
+               :preload => "none",
+               :width => "640",
+               :height => "264",
+               :autoplay => true}
+            %source{:src => @movie,
+                    :type => @type}
