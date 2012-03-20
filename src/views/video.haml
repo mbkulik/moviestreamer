@@ -1,14 +1,13 @@
-%body
+%head
+	%link{:href => "http://vjs.zencdn.net/c/video-js-css", :rel => "stylesheet" }
+	%script{ :src => "http://vjs.zencdm.net/c/video.js" }
 
-    %br
-    %br
-    %br
-
-    %center
-        %video{:controls => true,
-            :preload => "none",
-            :width => "640",
-            :height => "264",
-            :autoplay => true}
-            %source{:src => @movie,
-                :type => @type}
+%body{ :style => "background-color:black;" }
+	%center
+		%video{:id => "video1",
+			:class => "video-js vjs-default-skin",
+			:controls => true,
+			:preload => "auto",
+			:autoplay => true,
+			:data => { :setup => "{}" }}
+			%source{:src => @movie}
