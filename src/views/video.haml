@@ -1,13 +1,15 @@
 %head
-	%link{:href => "http://vjs.zencdn.net/c/video-js-css", :rel => "stylesheet" }
-	%script{ :src => "http://vjs.zencdm.net/c/video.js" }
+	%link{:href => "http://vjs.zencdn.net/c/video-js.css", :rel => "stylesheet" }
+	%script{ :src => "http://vjs.zencdn.net/c/video.js" }
 
-%body{ :style => "background-color:black;" }
+%body
 	%center
 		%video{:id => "video1",
 			:class => "video-js vjs-default-skin",
 			:controls => true,
 			:preload => "auto",
+			:width => "640",
+			:height => "264",
 			:autoplay => true,
+			:src => @movie,
 			:data => { :setup => "{}" }}
-			%source{:src => @movie}
