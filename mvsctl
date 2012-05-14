@@ -36,18 +36,10 @@ def devel_mode()
 end
 
 ################################################################
-## installs the needed dependency gems
-################################################################
-def install_depends()
-	system("bundle install")
-end
-
-################################################################
 ## build a release bundle and documents
 ################################################################
 def build_release()
 	build_dir = File.join(File.dirname(__FILE__), "build/")
-	docs_dir = File.join(File.dirname(__FILE__), "docs/")
 
 	if File.exists?(build_dir)
 		system("rm -r build/")
@@ -55,16 +47,8 @@ def build_release()
 
 	Dir.mkdir(build_dir)
 
-	if File.exists?(docs_dir)
-		system("rm -r docs/")
-	end
+	system("tar -czf build/mvs.tar.gz mvsctl src/config.ru src/MovieStreamer.rb src/favicon.ico src/views/")
 
-	Dir.mkdir(docs_dir)
-
-	system("tar -czf build/mvs.tar.gz mvsctl docs/ src/config.ru src/MovieStreamer.rb src/favicon.ico src/views/")
-
-	system("haml src/views/browsers.haml docs/Supported_Browsers.html")
-	system("haml src/views/readme.haml docs/ReadMe.html")
 end
 
 ################################################################

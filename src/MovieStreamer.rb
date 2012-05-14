@@ -1,12 +1,11 @@
 require 'rubygems'
 require 'sinatra/base'
 require 'browser'
-require 'haml'
+require 'erb'
 require 'json'
 
 class MovieStreamer < Sinatra::Base
 
-    set :haml, :format => :html5
     set :root, Dir.pwd
     set :public_folder, Proc.new { File.join(root, "public") }
     set :views, Proc.new { File.join(root, "views") }
@@ -40,21 +39,11 @@ class MovieStreamer < Sinatra::Base
         	stripped_name = File.basename(item, File.extname(item))
             stripped_name.gsub!("_" , " ")
 
-			if browser.mobile?
-
-				str << "<a href=\"/#{item}\">#{stripped_name}</a><br />\n"
-			else
-				str << "<a href=\"/m/#{item}\">#{stripped_name}</a><br />\n"
-			end
+			str << "<a href=\"/#{item}\">#{stripped_name}</a><br />\n"
 		end
 		
 		@movies = str
-		haml :index
-    end
-
-    get '/m/:movie' do
-        @movie = '/' + params[:movie]
-		haml :video
+		erb :index
     end
 
     get '/movielist' do
@@ -72,13 +61,5 @@ class MovieStreamer < Sinatra::Base
         movies.sort!()
 
         return JSON movies
-    end
-
-    get '/readme' do
-	    haml :readme
-    end
-
-    get '/browsers' do
-	    haml :browsers
     end
 end
