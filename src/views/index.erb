@@ -1,5 +1,11 @@
 <html>
 	<body>
-		<%= @movies %>
+		<% @movies.each do |movie| %>
+			<% display_name = File.basename(movie, File.extname(movie)) %>
+			<% display_name.gsub!("_", " ") %>
+
+			<a href="/<%= movie %>"><%= display_name %></a><br />
+
+		<% end %>
 	</body>
 </html>
