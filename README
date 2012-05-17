@@ -6,8 +6,6 @@ Usage:
 
 ./mvsctl -d, --devel		starts the server in development mode on port 8080
 
-./mvsctl -b, --build		builds a tar file for distribution
-
 ./mvsctl -c, --change PATH	changes the location of the movie directory to the specified PATH
 
 

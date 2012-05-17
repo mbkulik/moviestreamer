@@ -36,22 +36,6 @@ def devel_mode()
 end
 
 ################################################################
-## build a release bundle and documents
-################################################################
-def build_release()
-	build_dir = File.join(File.dirname(__FILE__), "build/")
-
-	if File.exists?(build_dir)
-		system("rm -r build/")
-	end
-
-	Dir.mkdir(build_dir)
-
-	system("tar -czf build/mvs.tar.gz mvsctl src/config.ru src/MovieStreamer.rb src/favicon.ico src/views/")
-
-end
-
-################################################################
 # change_directory
 ################################################################
 def change_directory( path )
