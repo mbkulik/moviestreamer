@@ -66,14 +66,6 @@ optparse = OptionParser.new do |opts|
 		devel_mode	
 	end
 
-	opts.on('-i', '--install', 'Install Dependencies') do
-		install_depends	
-	end
-
-	opts.on('-b', '--build', 'Build a release') do
-        build_release	
-	end
-
 	opts.on('-c', '--change PATH', 'Change the movie directory') do |p|
 		change_directory p	
 	end 
