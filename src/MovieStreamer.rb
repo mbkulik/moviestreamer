@@ -27,13 +27,13 @@ class MovieStreamer < Sinatra::Base
 		end
 
 		Dir.chdir(settings.public_folder)
-		@movies = Dir.glob(video_extension)
+		@movies = Dir.glob(video_extension).sort!
 		erb :index
     end
 	
 	get '/json' do
 		Dir.chdir(settings.public_folder)
-		files = Dir.glob("*.{mp4,m4v,webm}")
+		files = Dir.glob("*.{mp4,m4v,webm}").sort!
 		return files.to_json	
 	end
 end
