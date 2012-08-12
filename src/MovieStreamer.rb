@@ -23,7 +23,7 @@ class MovieStreamer < Sinatra::Base
 			video_extension = "*.webm"
 		elsif browser.ios? or browser.safari? or browser.ie9? or
 		browser.android?
-			video_extesion = "*.{mp4,m4v}"
+			video_extension = "*.{mp4,m4v}"
 		end
 
 		Dir.chdir(settings.public_folder)
