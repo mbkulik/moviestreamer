@@ -15,16 +15,11 @@ class MovieStreamer < Sinatra::Base
 	end
 
 	get '/' do
-		video_extension = ""
 		browser = Browser.new(:ua => request.user_agent,
 			      :accept_language => "en-us")
 
-		if browser.chrome? or browser.opera? or browser.firefox?
-			video_extension = "*.webm"
-		elsif browser.ios? or browser.safari? or browser.ie9? or
-		browser.android?
-			video_extension = "*.{mp4,m4v}"
-		end
+		video_extension = "*.webm" if browser.chrome? or browser.opera? or browser.firefox?
+		video_extension = "*.{mp4,m4v}" if browser.ios? or browser.safari? or browser.ie9? or browser.android?
 
 		Dir.chdir(settings.public_folder)
 		@movies = Dir.glob(video_extension).sort!
