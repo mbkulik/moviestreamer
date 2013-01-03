@@ -18,12 +18,19 @@ class MovieStreamer < Sinatra::Base
 		browser = Browser.new(:ua => request.user_agent,
 			      :accept_language => "en-us")
 
-		video_extension = "*.webm" if browser.chrome? or browser.opera? or browser.firefox?
-		video_extension = "*.{mp4,m4v}" if browser.ios? or browser.safari? or browser.ie9? or browser.android?
+		if browser.ios? or browser.safari? or browser.android?
+			video_extension = "*.{mp4,m4v}"
+		elsif browser.chrome? or browser.opera? or browser.firefox?
+			video_extension = "*.webm"
+		end
 
-		Dir.chdir(settings.public_folder)
-		@movies = Dir.glob(video_extension).sort!
-		erb :index
+		if !video_extension.nil?
+			Dir.chdir(settings.public_folder)
+			@movies = Dir.glob(video_extension).sort!
+			erb :index
+		else
+			erb :browser_error
+		end
     end
 	
 	get '/json' do
