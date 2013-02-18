@@ -1,12 +1,12 @@
 Usage:
 
-./mvsctl -s, --start		starts the server on port 80 (needs root permission)
+./mvsctl -s, --start        starts the server on port 80 (needs root permission)
 
-./mvsctl -x, --stop			stops the server
+./mvsctl -x, --stop         stops the server
 
-./mvsctl -d, --devel		starts the server in development mode on port 8080
+./mvsctl -d, --devel        starts the server in development mode on port 8080
 
-./mvsctl -c, --change PATH	changes the location of the movie directory to the specified PATH
+./mvsctl -c, --change PATH  changes the location of the movie directory to the specified PATH
 
 
 Tested Browsers:
