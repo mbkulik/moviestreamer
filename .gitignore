@@ -1,9 +1,2 @@
-*.swp
-*.log
-*.pid
-*.out
-*.zip
-
+.DS_Store
 public
-build/
-docs/

@@ -1,6 +1,6 @@
 source "http://rubygems.org"
-gem "rack"
-gem "puma"
+gem "rake"
+gem "unicorn"
 gem "sinatra"
 gem "browser"
 gem "json"
