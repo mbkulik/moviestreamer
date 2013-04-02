@@ -1,12 +1,10 @@
 Usage:
 
-./mvsctl -s, --start        starts the server on port 80 (needs root permission)
+rake development		starts the server in development mode on port 8080
 
-./mvsctl -x, --stop         stops the server
+rake production			starts the server on port 80 (needs root permission)
 
-./mvsctl -d, --devel        starts the server in development mode on port 8080
-
-./mvsctl -c, --change PATH  changes the location of the movie directory to the specified PATH
+rake location[path]		changes the location of the movie directory to the 							specified [path]		
 
 
 Tested Browsers:
