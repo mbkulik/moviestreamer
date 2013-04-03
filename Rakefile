@@ -9,9 +9,13 @@ task :production do
 end
 
 task :location, [:path] do |t, args|
-	args.with_defaults(:path => "$HOME/Movies")
+    
+    target = File.join(File.dirname(__FILE__), "public")
+    source = args[:path] || File.join(Dir.home(), "Movies/")
 
-	public_path = File.join(File.dirname(__FILE__), "public")
+    if File.exists?(target)
+        File.unlink(target)
+    end
 
-	sh "ln -sf #{args.path} #{public_path}"
+    FileUtils.ln_sf(source, target)
 end
