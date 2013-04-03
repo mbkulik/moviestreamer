@@ -1,10 +1,10 @@
 Usage:
 
-rake development		starts the server in development mode on port 8080
+rake development        starts the server in development mode on port 8080
 
-rake production			starts the server on port 80 (needs root permission)
+rake production	        starts the server on port 80 (needs root permission)
 
-rake location[path]		changes the location of the movie directory to the 							specified [path]		
+rake location[path]     changes the location of the movie directory to the specified [path]		
 
 
 Tested Browsers:
