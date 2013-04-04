@@ -16,7 +16,7 @@ class MovieStreamer < Sinatra::Base
 
 	get '/' do
 		browser = Browser.new(:ua => request.user_agent,
-			      :accept_language => "en-us")
+			:accept_language => "en-us")
 
 		if browser.ios? or browser.safari? or browser.android?
 			video_extension = "*.{mp4,m4v}"
@@ -31,11 +31,11 @@ class MovieStreamer < Sinatra::Base
 		else
 			erb :browser_error
 		end
-    end
+	end
 	
 	get '/json' do
 		Dir.chdir(settings.public_folder)
 		files = Dir.glob("*.{mp4,m4v,webm}").sort!
-		return files.to_json	
+		return files.to_json
 	end
 end
