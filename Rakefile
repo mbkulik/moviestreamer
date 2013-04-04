@@ -1,7 +1,8 @@
 task :default => [:development]
 
 task :development do
-	sh "unicorn --env development"
+    trap("INT", "IGNORE")
+    sh "unicorn --env development"
 end
 
 task :production do
