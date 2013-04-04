@@ -1,11 +1,11 @@
 task :default => [:development]
 
 task :development do
-	sh "unicorn -l 127.0.0.1:8080 -E development"
+	sh "unicorn -l 0.0.0.0:8080 -E development"
 end
 
 task :production do
-	sh "sudo unicorn -l 127.0.0.1:80 -E production -D"
+	sh "sudo unicorn -l 0.0.0.0:80 -E production -D"
 end
 
 task :location, [:path] do |t, args|
