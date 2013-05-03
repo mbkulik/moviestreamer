@@ -1,0 +1,83 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+
+###############################################################
+## starts the server
+###############################################################
+def start_server()
+    pid_path = File.join(File.dirname(__FILE__), "mvs.pid")
+	
+    if File.exists?(pid_path) == false
+		system("unicorn -p 80 -E production -c conf.rb -D")
+	end
+end
+
+################################################################
+## stop_server 
+################################################################
+def stop_server()
+    pid_path = File.join(File.dirname(__FILE__), "mvs.pid")
+	
+    if File.exists?(pid_path)
+    		pid = File.open(pid_path).first.to_i
+		if pid > 1
+			Process.kill("TERM", pid)
+		end
+	end
+end
+
+################################################################
+## starts the server in the development mode
+################################################################
+def devel_mode()
+	puts "Development Mode\n"
+	system("unicorn -E development")
+end
+
+################################################################
+# change_directory
+################################################################
+def change_directory( path )
+	public_path = File.join(File.dirname(__FILE__), "public")
+
+	if File.exists?(public_path)
+		File.unlink(public_path)
+	end
+	
+	File.symlink(path, public_path)
+end
+
+options = {}
+
+optparse = OptionParser.new do |opts|
+
+    opts.banner = "Usage: mvsctl [options]"
+
+	opts.on('-s', '--start', 'Start Server') do
+		start_server	
+	end
+
+	opts.on('-x', '--stop', 'Stop Server') do
+		stop_server	
+	end
+
+	opts.on('-d', '--devel', 'Development Mode') do 
+		devel_mode	
+	end
+
+	opts.on('-c', '--change PATH', 'Change the movie directory') do |p|
+		change_directory p	
+	end 
+
+	opts.on('-h', '--help', 'Display this screen') do
+        puts opts
+    end
+end
+
+begin
+	optparse.parse!
+rescue Exception => e
+	puts "Exception Occured: #{e}"
+	exit 1
+end
