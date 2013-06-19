@@ -9,7 +9,7 @@ def start_server()
     pid_path = File.join(File.dirname(__FILE__), "src/mvs.pid")
 	
     if File.exists?(pid_path) == false
-		system("cd ./src; rackup -E production -p 80 -s puma -P mvs.pid -D")
+		system("cd ./src; rackup -E production -p 80 -s Puma -P mvs.pid -D")
 	end
 end
 
@@ -32,7 +32,7 @@ end
 ################################################################
 def devel_mode()
 	puts "Development Mode\n"
-	system("cd ./src; rackup -E development -p 8080 -s puma")
+	system("cd ./src; rackup -E development -p 8080 -s Puma")
 end
 
 ################################################################
